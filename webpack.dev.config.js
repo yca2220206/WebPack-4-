@@ -5,7 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+       'hello-word': './src/hello-word.js',
+       'kiwi': './src/kiwi.js',
+    },
     output: {
        filename: 'bundle.js',
        path: path.resolve(__dirname, 'dist'),
@@ -22,7 +25,7 @@ module.exports = {
     module: {
        rules: [
          {
-           test: /\.(jpg|png)$/,
+           test: /\.(jpe?g|png)$/,
            use: [
              {
                loader: 'file-loader'
@@ -81,6 +84,7 @@ module.exports = {
     plugins: [
       new TerserPlugin({}),
       new HtmlWebpackPlugin({
+          chunks: ['kiwi'],
           filename: './index.html',
           template: './index.html',
           inject: true,

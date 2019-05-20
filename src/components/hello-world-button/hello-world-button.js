@@ -1,8 +1,10 @@
 import './hello-world-button.scss';
+import loadash from 'lodash';
 
 class hellowordbutton {
   buttonCssClass = 'hello-world-button';
   render() {
+    debugger;
     const button = document.createElement('button');
     const body = document.querySelector('body');
     button.innerHTML = 'helloword';

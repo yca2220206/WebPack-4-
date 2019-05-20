@@ -5,11 +5,20 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const packagejson = require('./package.json');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+       'hello-word': './src/hello-word.js',
+       'kiwi': './src/kiwi.js',
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      }
+    },
     output: {
-       filename: 'bundle.[contenthash].js',
+       filename: '[name].[contenthash].js',
        path: path.resolve(__dirname, 'dist'),
        publicPath: '',
     },
@@ -17,7 +26,7 @@ module.exports = {
     module: {
        rules: [
          {
-           test: /\.(jpg|png)$/,
+           test: /\.(jpe?g|png)$/,
            use: [
              {
                loader: 'file-loader'
@@ -76,7 +85,7 @@ module.exports = {
     plugins: [
        new TerserPlugin({}),
        new MiniCssExtractPlugin({
-          filename: 'styles.[contenthash].css',
+          filename: '[name].[contenthash].css',
        }),
        new OptimizeCSSAssetsPlugin({
           cssProcessor: cssnano,
@@ -91,7 +100,16 @@ module.exports = {
           canPrint: true,
       }),
       new HtmlWebpackPlugin({
+          chunks: ['vendors~hello-word~kiwi','kiwi'],
           filename: './index.html',
+          template: './index.html',
+          inject: true,
+          hash: false,
+          title: 'kiwi',
+      }),
+      new HtmlWebpackPlugin({
+          chunks: ['vendors~hello-word~kiwi','hello-word'],
+          filename: './hello-word.html',
           template: './index.html',
           inject: true,
           hash: false,
