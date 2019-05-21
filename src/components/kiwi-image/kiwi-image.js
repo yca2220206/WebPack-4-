@@ -1,6 +1,5 @@
 import "./kiwi-image.scss";
 import simion from '../../images/simion.jpeg';
-import loadash from 'lodash';
 
 class KiwiImage {
   render() {

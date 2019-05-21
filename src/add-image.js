@@ -1,4 +1,5 @@
 import james from './images/james.jpg';
+import React from 'react';
 
 function addImage() {
    const image = document.createElement('img');

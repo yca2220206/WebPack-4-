@@ -10,7 +10,7 @@ module.exports = {
        'kiwi': './src/kiwi.js',
     },
     output: {
-       filename: 'bundle.js',
+       filename: '[name].bundle.js',
        path: path.resolve(__dirname, 'dist'),
        publicPath: '',
     },
@@ -46,10 +46,6 @@ module.exports = {
                  },
                  gifsicle: {
                    interlaced: false,
-                 },
-                 // the webp option will enable WEBP
-                 webp: {
-                   quality: 75
                  }
                }
              },
@@ -86,6 +82,14 @@ module.exports = {
       new HtmlWebpackPlugin({
           chunks: ['kiwi'],
           filename: './index.html',
+          template: './index.html',
+          inject: true,
+          hash: false,
+          title: 'kiwi',
+      }),
+      new HtmlWebpackPlugin({
+          chunks: ['hello-word'],
+          filename: './hello-word.html',
           template: './index.html',
           inject: true,
           hash: false,

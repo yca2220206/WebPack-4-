@@ -15,6 +15,8 @@ module.exports = {
     optimization: {
       splitChunks: {
         chunks: 'all',
+        minSize: 10000,
+        automaticNameDelimiter: '~',
       }
     },
     output: {
@@ -47,10 +49,6 @@ module.exports = {
                  },
                  gifsicle: {
                    interlaced: false,
-                 },
-                 // the webp option will enable WEBP
-                 webp: {
-                   quality: 75
                  }
                }
              },
