@@ -1,11 +1,22 @@
 const path = require('path');
 const cssnano = require("cssnano");
+const autoprefixer = require('autoprefixer');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const packagejson = require('./package.json');
+
+const AUTOPREFIXER_BROWSERS = [
+    'Android >= 4',
+    'Chrome >= 35',
+    'Firefox >= 31',
+    'Explorer >= 9',
+    'iOS >= 7',
+    'Opera >= 12',
+    'Safari >= 7.1',
+];
 
 module.exports = {
     entry: {
@@ -63,7 +74,19 @@ module.exports = {
          },
          {
            test: /\.scss$/,
-           use: [ MiniCssExtractPlugin.loader,'css-loader', 'sass-loader']
+           use: [ MiniCssExtractPlugin.loader,'css-loader',
+           {
+             loader: 'postcss-loader',
+             options: {
+               ident: 'postcss',
+               plugins: (loader) => [
+                 cssnano(),
+                 autoprefixer({
+                   browsers: AUTOPREFIXER_BROWSERS
+                 })
+               ]
+             }
+           }, 'sass-loader']
          },
          {
            test: /\.js/,
