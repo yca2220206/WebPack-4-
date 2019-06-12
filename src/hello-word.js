@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import hellowordbutton from './components/hello-world-button/hello-world-button.js';
 import heading from './components/heading/heading.js';
 import React from 'react';

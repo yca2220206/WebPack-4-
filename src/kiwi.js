@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import heading from './components/heading/heading.js';
 import kiwiImage from './components/kiwi-image/kiwi-image.js';
 import React from 'react';
