@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const cssnano = require("cssnano");
 const autoprefixer = require('autoprefixer');
@@ -6,7 +7,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const packagejson = require('./package.json');
 
 const AUTOPREFIXER_BROWSERS = [
     'Android >= 4',
@@ -20,14 +20,13 @@ const AUTOPREFIXER_BROWSERS = [
 
 module.exports = {
     entry: {
-       'hello-word': './src/hello-word.js',
+       'bitcoin': './src/bitcoin.js',
        'kiwi': './src/kiwi.js',
     },
     optimization: {
       splitChunks: {
         chunks: 'all',
-        minSize: 10000,
-        automaticNameDelimiter: '~',
+        name: 'vender',
       }
     },
     output: {
@@ -121,7 +120,7 @@ module.exports = {
           canPrint: true,
       }),
       new HtmlWebpackPlugin({
-          chunks: ['vendors~hello-word~kiwi','kiwi'],
+          chunks: ['vender', 'vendors~hello-word~kiwi','kiwi'],
           filename: './index.html',
           template: './index.html',
           inject: true,
@@ -129,13 +128,14 @@ module.exports = {
           title: 'kiwi',
       }),
       new HtmlWebpackPlugin({
-          chunks: ['vendors~hello-word~kiwi','hello-word'],
+          chunks: ['vender', 'vendors~hello-word~kiwi','hello-word'],
           filename: './hello-word.html',
           template: './index.html',
           inject: true,
           hash: false,
           title: 'hello word',
       }),
+      new webpack.HashedModuleIdsPlugin(),
       new CleanWebpackPlugin(),
     ],
 }
