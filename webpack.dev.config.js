@@ -3,10 +3,11 @@ const cssnano = require("cssnano");
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 module.exports = {
     entry: {
-       'hello-word': './src/hello-word.js',
+       'hello-word': './src/bitcoin.js',
        'kiwi': './src/kiwi.js',
     },
     output: {
@@ -20,7 +21,8 @@ module.exports = {
       contentBase: path.join(__dirname, "dist"),
       compress: false,
       port: 9001,
-      index: 'index.html'
+      index: 'index.html',
+      stats: "errors-only",
     },
     module: {
        rules: [
@@ -96,5 +98,6 @@ module.exports = {
           title: 'hello word',
       }),
       new CleanWebpackPlugin(),
+      new FriendlyErrorsWebpackPlugin()
     ],
 }

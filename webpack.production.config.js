@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 const AUTOPREFIXER_BROWSERS = [
     'Android >= 4',
@@ -20,9 +21,10 @@ const AUTOPREFIXER_BROWSERS = [
 
 module.exports = {
     entry: {
-       'bitcoin': './src/bitcoin.js',
-       'kiwi': './src/kiwi.js',
+        'hello-word': './src/bitcoin.js',
+        'kiwi': './src/kiwi.js',
     },
+    stats: "errors-only",
     optimization: {
       splitChunks: {
         chunks: 'all',
@@ -120,15 +122,15 @@ module.exports = {
           canPrint: true,
       }),
       new HtmlWebpackPlugin({
-          chunks: ['vender', 'vendors~hello-word~kiwi','kiwi'],
-          filename: './index.html',
+          chunks: ['vender' ,'kiwi'],
+          filename: './kiwi.html',
           template: './index.html',
           inject: true,
           hash: false,
           title: 'kiwi',
       }),
       new HtmlWebpackPlugin({
-          chunks: ['vender', 'vendors~hello-word~kiwi','hello-word'],
+          chunks: ['vender', 'hello-word'],
           filename: './hello-word.html',
           template: './index.html',
           inject: true,
@@ -137,5 +139,15 @@ module.exports = {
       }),
       new webpack.HashedModuleIdsPlugin(),
       new CleanWebpackPlugin(),
+      new FriendlyErrorsWebpackPlugin(),
+      function () { //  错误捕获
+         this.hooks.done.tap('done', (stats) => {
+              if(stats.compilation.errors &&
+                  stats.compilation.errors.length) {
+                console.log('build error' +  stats.compilation.errors);
+                process.exit(1); // 0成功 、非0失败
+              }
+         });
+      }
     ],
 }
