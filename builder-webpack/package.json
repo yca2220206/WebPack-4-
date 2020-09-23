@@ -2,8 +2,18 @@
   "name": "builder-webpack",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "ISC",
+  "scripts": {
+    "fix": "eslint ./lib --fix",
+    "eslint": "eslint ./lib"
+  },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  },
+  "dependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "autoprefixer": "^9.5.1",
@@ -19,7 +29,6 @@
     "glob": "^7.1.6",
     "html-webpack-externals-plugin": "^3.8.0",
     "html-webpack-plugin": "^3.2.0",
-    "image-webpack-loader": "^4.6.0",
     "mini-css-extract-plugin": "^0.6.0",
     "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
@@ -31,9 +40,5 @@
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.3.1",
     "webpack-merge": "^5.1.4"
-  },
-  "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
   }
 }
