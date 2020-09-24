@@ -24,7 +24,7 @@ module.exports = {
         'hello-word': './src/bitcoin.js',
         'kiwi': './src/kiwi.js',
     },
-    stats: "errors-only",
+
     optimization: {
       splitChunks: {
         chunks: 'all',
@@ -110,6 +110,7 @@ module.exports = {
           filename: '[name].[contenthash].css',
        }),
        new OptimizeCSSAssetsPlugin({
+          assetNameRegExp: /\.css$/g,
           cssProcessor: cssnano,
           cssProcessorOptions: {
             discardComments: {
