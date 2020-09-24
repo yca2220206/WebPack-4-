@@ -7,22 +7,13 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
-const AUTOPREFIXER_BROWSERS = [
-  'Android >= 4',
-  'Chrome >= 35',
-  'Firefox >= 31',
-  'Explorer >= 9',
-  'iOS >= 7',
-  'Opera >= 12',
-  'Safari >= 7.1',
-];
-
+const workingDirectory = process.cwd();
 // 多页面打包
 const setMPA = () => {
   const entry = {};
   const htmlWebpackPlugins = [];
 
-  const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'));
+  const entryFiles = glob.sync(path.join(workingDirectory, './src/*/index.js'));
   Object.keys(entryFiles).map((index) => {
     const entryFile = entryFiles[index];
     const match = entryFile.match(/src\/(.*)\/index\.js/);
@@ -31,7 +22,7 @@ const setMPA = () => {
     entry[pageName] = entryFile;
     return htmlWebpackPlugins.push(
       new HtmlWebpackPlugin({
-        template: path.join(__dirname, `src/${pageName}/index.html`),
+        template: path.join(workingDirectory, `./src/${pageName}/index.html`),
         filename: `${pageName}.html`,
         chunks: [pageName],
         inject: true,
@@ -87,9 +78,7 @@ module.exports = {
               ident: 'postcss',
               plugins: () => [
                 cssnano(),
-                autoprefixer({
-                  browsers: AUTOPREFIXER_BROWSERS,
-                }),
+                autoprefixer({}),
               ],
             },
           },

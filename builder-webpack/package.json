@@ -3,15 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "ISC",
+  "browserslist": [
+    "cover 99.5%"
+  ],
   "scripts": {
     "fix": "eslint ./lib --fix",
-    "eslint": "eslint ./lib"
+    "eslint": "eslint ./lib",
+    "test": "node ./test/smoke/"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0"
+    "eslint-plugin-import": "^2.22.0",
+    "mocha": "^8.1.3",
+    "rimraf": "^3.0.2",
+    "yargs": "^16.0.3"
   },
   "dependencies": {
     "@babel/core": "^7.4.4",

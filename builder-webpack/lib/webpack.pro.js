@@ -1,10 +1,8 @@
-import { merge } from 'webpack-merge';
-import TerserPlugin from 'terser-webpack-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import cssnano from 'cssnano';
-import HtmlWebpackExternalsPlugin from 'html-webpack-externals-plugin';
-import path from 'path';
-
+const { merge } = require('webpack-merge');
+const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const cssnano = require('cssnano');
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 const webpackBase = require('./webpack.base');
 
 module.exports = merge(webpackBase, {
@@ -22,8 +20,6 @@ module.exports = merge(webpackBase, {
   },
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '',
   },
   mode: 'production',
   plugins: [
