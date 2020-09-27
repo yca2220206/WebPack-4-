@@ -34,7 +34,7 @@ const setMPA = () => {
           minifyJS: true,
           removeComments: false,
         },
-      }),
+      })
     );
   });
 
